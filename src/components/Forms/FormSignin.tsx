@@ -1,14 +1,12 @@
-import { TUserRegister } from "@/@types/User";
-import { ChangeEvent, FormEvent, useState } from "react";
-import Api from "../Hooks/Axios";
+import { TUserAuth } from "@/@types/User";
+import { AuthContext } from "@/Contexts/Auth/AuthContexts";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, ReactNode, useContext, useState } from "react";
 
-export default function FormRegister({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [fieldValues, setFieldValues] = useState<TUserRegister>({
-    name: "",
+export default function Login({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const auth = useContext(AuthContext);
+  const [fieldValues, setFieldValues] = useState<TUserAuth>({
     email: "",
     password: "",
   });
@@ -16,32 +14,22 @@ export default function FormRegister({
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFieldValues({ ...fieldValues, [e.target.name]: e.target.value });
   };
+  const { email, password } = fieldValues;
 
-  const api = Api();
-  
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log(fieldValues);
-    try {
-      await api.post("/user", fieldValues);
-    } catch (error) {
-      console.log(error);
+    const isLoggedIn = await auth.signin(email, password);
+    
+    if (isLoggedIn) {      
+      router.push('/user/emails-sent')
+    }else {      
+      alert('login to dashboard is failed')
     }
   };
 
-  const { name, email, password } = fieldValues;
-
   return (
     <form onSubmit={handleSubmit} method="post">
-      <label htmlFor="name">Digite o seu nome</label>
-      <input
-        type="text"
-        name="name"
-        minLength={3}
-        value={name}
-        onChange={handleFormChange}
-        required
-      />
       <label htmlFor="email">Digite o seu email</label>
       <input
         type="email"
@@ -63,5 +51,3 @@ export default function FormRegister({
     </form>
   );
 }
-
-// export default function <Form></Form>Re

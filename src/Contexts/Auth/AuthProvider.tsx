@@ -1,47 +1,46 @@
 import { TUser } from "@/@types/User";
-import React, { useEffect } from "react";
+import React from "react";
 import { AuthContext } from "./AuthContexts";
+import { useApi } from "@/components/Hooks/FetchApi";
 
-export const AuthProvider = ({ children }: { children: React.ReactNode } ) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<TUser | null>(null);
 
   const api = useApi();
 
-  useEffect(() => {
-    const validateToken = async () => {
-      const storageData = localStorage.getItem('token');
-      if (storageData) {
-        const data = await api.validateToken(storageData)
-        if (data.user) {
-          setUser(data.user);
-        }
+  React.useEffect(() => {
+    const validateToken = (token: string | null) => {
+      if (token) {
+        return setUser(token);
       }
-    }
-  
+      setUser(null);
+      alert("Invalid token");
+    };
+
     return () => {
-      validateToken()
-    }
-  }, [])
+      validateToken(localStorage.getItem("token"));
+    };
+  }, [api]);
 
   const signin = async (email: string, password: string): Promise<boolean> => {
-    const data = await api.signin(email, password)
+    const data = await api.signin(email, password);
 
-    if (data.user && data.token) return true
-    return false
-  }
+    if (data.user && data.token) {
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
+      return true;
+    }
+    return false;
+  };
 
-  const signout = async () => {
-    await api.signout();
+  const signout = () => {
     setUser(null);
-    setToken("")
+    localStorage.setItem("token", "");
+  };
 
-  }
-
-  const setToken = (token: string) => {
-    localStorage.setItem('token', token)
-  }
-  
   return (
-    AuthContext.Provider({value: {user, signin, signout}})
-  )
-}
+    <AuthContext.Provider value={{ user, signin, signout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
