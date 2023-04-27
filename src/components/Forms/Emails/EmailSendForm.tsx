@@ -1,12 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import Api from "../../Hooks/Axios";
-import { TEMailSend } from "@/@types/Email";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function EmailSendForm({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { ChangeEvent, FormEvent, useState } from "react";
+import { TEMailSend } from "@/@types/Email";
+import { useApi } from "@/components/Hooks/FetchApi";
+import cookies from "js-cookie";
+import InputSendEmail from "../Inputs/InputSendEmail";
+import LabelSendEmail from "../Labels/LabelSendEmail";
+import ButtonForm from "@/components/Button/Button";
+
+export default function EmailSendForm() {
+  const token = cookies.get("token");
+  const api = useApi();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [fieldValues, setFieldValues] = useState<TEMailSend>({
     recipient: "",
@@ -16,60 +23,88 @@ export default function EmailSendForm({
 
   const clearAllFieldValues = () => {
     setFieldValues({ recipient: "", subject: "", text: "" });
-  }
+  };
 
-  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFieldValues({ ...fieldValues, [e.target.name]: e.target.value });
   };
-  
-  const api = Api();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      console.log(fieldValues)
-      await api.post("/user/sent-email", {
-        to: recipient,
-        subject,
-        text
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    clearAllFieldValues()
+    setLoading(true);
+
+    await api.sendEmail(token, {
+      to: recipient,
+      subject,
+      text,
+    });
+
+    setLoading(false);
+    toast.success("Email enviado com sucesso", {
+      position: "top-center",
+    });
+    clearAllFieldValues();
   };
 
   const { recipient, subject, text } = fieldValues;
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} method="post">
-        <input
+    <form
+      className="flex flex-col h-full"
+      onSubmit={handleSubmit}
+      method="post"
+      autoComplete="off"
+    >
+      <LabelSendEmail className="" htmlFor="recipient">
+        <strong>Para:</strong>
+        <InputSendEmail
+          className=""
           type="email"
-          placeholder="Para:"
           name="recipient"
           value={recipient}
           onChange={handleFormChange}
-          required
         />
-        <input
+      </LabelSendEmail>
+
+      <LabelSendEmail className="" htmlFor="subject">
+        <strong>Assunto:</strong>
+        <InputSendEmail
+          className=""
           type="text"
-          placeholder="Assunto"
           name="subject"
           value={subject}
           onChange={handleFormChange}
         />
-        <input
-          type="text"
-          placeholder="Escreva aqui a sua mensagem:"
-          name="text"
-          value={text}
-          onChange={handleFormChange}
-          required
-        />
-        <button onClick={clearAllFieldValues}>Cancelar</button>
-        {children}
-      </form>
-    </div>
+      </LabelSendEmail>
+
+      <textarea
+        className="h-4/5 px-6 py-8 bg-blackBg border border-whiteText/30 outline-none resize-none"
+        placeholder="Escreva aqui a sua mensagem:"
+        name="text"
+        value={text}
+        onChange={handleFormChange}
+        required
+      />
+
+      <div className="w-full h-1/6 flex justify-around py-5">
+        <ButtonForm
+          className="self-end bg-redBg hover:bg-redBg/80"
+          type="reset"
+          onClick={clearAllFieldValues}
+        >
+          Cancelar
+        </ButtonForm>
+        <ButtonForm
+          className="self-end bg-blueDark"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Enviando..." : "Enviar"}
+        </ButtonForm>
+      </div>
+      <ToastContainer />
+    </form>
   );
 }

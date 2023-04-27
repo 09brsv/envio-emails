@@ -10,7 +10,7 @@ export type TUser = {
   password?: string;
 }
 
-export interface TUserRegister extends TUserAuth {
+export interface IUserRegister extends TUserAuth {
 
   name: string;
 }

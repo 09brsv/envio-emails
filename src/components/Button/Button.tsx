@@ -1,13 +1,16 @@
 
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 
-type TButtonProps = {
-  text: string;
-  typeButton?: "button" | "submit" | "reset" | undefined;
-}
-
-function ButtonForm({ text, typeButton }: TButtonProps) {
-  return <button type={typeButton}>{text}</button>;
+function ButtonForm(props: ButtonHTMLAttributes<HTMLButtonElement>) {
+  const className: string =
+    "rounded-lg font-semibold w-36 py-2 hover:bg-blueDark/80 disabled:bg-blueDark/50";
+  const concatClassName = `${props.className} ${className}`;
+  return (
+    <button
+      {...props}
+      className={props.className ? concatClassName : className}
+    ></button>
+  );
 }
 
 export default ButtonForm

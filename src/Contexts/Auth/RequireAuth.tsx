@@ -1,18 +1,11 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export const RequireAuth = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-  useEffect(() => {
-    const tokenValid = localStorage.getItem("token");
+  const token = cookies().get('token');
 
-    if (!tokenValid) {
-      console.log(tokenValid);
-
-      router.push("/login");
-    }
-  }, [router]);
-
+  if (!token?.value) {
+    redirect("/login");
+  }
   return <>{children}</>;
 };

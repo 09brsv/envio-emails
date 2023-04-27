@@ -1,13 +1,12 @@
 import { AllHTMLAttributes } from "react";
 
-export default function NavBarHeader(props: AllHTMLAttributes<HTMLUListElement>) {
-  const className: string =
-    "h-14 w-full bg-blueDark flex flex-col justify-center border";
+export default function Ul(props: AllHTMLAttributes<HTMLUListElement>) {
+  const className: string = "flex justify-around items-center gap-4";
   const concatClassName = `${props.className} ${className}`;
   return (
-    <nav
+    <ul
       {...props}
       className={props.className ? concatClassName : className}
-    ></nav>
+    ></ul>
   );
 }
