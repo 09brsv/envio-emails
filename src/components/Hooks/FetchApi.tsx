@@ -92,7 +92,7 @@ export const useApi = () => ({
     token: string | undefined,
     bodyEmail: Omit<TEMailSend, "recipient">
   ) => {
-    const response = await fetch(`${baseUrl}/user/sent-email`, {
+    const response = await fetch(`${baseUrl}/user/send-email`, {
       method: "POST",
       body: JSON.stringify(bodyEmail),
       cache: "no-cache",
@@ -103,6 +103,7 @@ export const useApi = () => ({
     });
 
     const data = await response.json();
+    
     return data;
   },
 });
