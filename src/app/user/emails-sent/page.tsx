@@ -13,13 +13,20 @@ import Ul from "@/components/Nav/Ul";
 import Li from "@/components/Nav/Li";
 import BackIcon from "@/components/Icons/Back";
 
+interface IStyle {
+  position: string;
+  display: string;
+  overflow?: string;
+}
+
 export default function EmailsSent() {
   const router = useRouter();
   const [data, setData] = useState<TDataSent[] | null>(null);
   const [email, setEmail] = useState<TDataSent | null>(null);
-  const [style, setPosition] = useState<{ position: string; display: string }>({
+  const [style, setPosition] = useState<IStyle>({
     position: "static",
     display: "hidden",
+    overflow: "auto",
   });
   const [isEnter, setIsEnter] = useState<boolean>(false);
 
@@ -44,12 +51,15 @@ export default function EmailsSent() {
     setPosition({
       position: "absolute",
       display: "flex",
+      overflow: "hidden"
     });
     setIsEnter(true);
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div
+      className={`h-screen flex flex-col overlfow-${style.overflow} border border-whiteText/30`}
+    >
       {style.display === "flex" ? (
         <div className="flex">
           <BackIcon
@@ -60,6 +70,7 @@ export default function EmailsSent() {
               setPosition({
                 position: "static",
                 display: "hidden",
+                overflow: "auto",
               });
             }}
           />
@@ -112,19 +123,23 @@ export default function EmailsSent() {
               </Li>
 
               <Li className="hidden sm:block sm:basis-1/4">
-                Enviar para vários
+                <Link className="hover:text-whiteText/80" href="/user/send-all">
+                  Enviar para vários
+                </Link>
               </Li>
             </Ul>
           </NavBarHeader>
 
-          <div className="flex">
-            <aside className=" h-[calc(348px*3)] flex flex-col w-full sm:w-2/3 border-x border-x-whiteText/30 overflow-y-auto">
+          <div className="h-full flex">
+            <aside className="h-2/3 flex flex-col w-full sm:w-2/3 overflow-y-auto">
               {data &&
                 data.map((email) => {
                   return (
                     <div
                       key={email.id}
-                      className={`flex flex-col gap-1 border-y border-y-whiteText/30 p-2 px-3`}
+                      className={`${
+                        style.display === "hidden" ? "flex" : "hidden"
+                      } sm:flex flex-col gap-1 border-y border-y-whiteText/30 border-b-0 p-2 px-3`}
                       onClick={() => handleClick(email)}
                     >
                       <h3>{email.email}</h3>
@@ -137,7 +152,7 @@ export default function EmailsSent() {
 
             <CSSTransition in={isEnter} timeout={3000} classNames="listMails">
               <div
-                className={`sm:flex h-[calc(100%-4rem)] w-full sm:static justify-center items-center font-bold text-xl ${style.display} ${style.position} left-0`}
+                className={`sm:flex w-full sm:static justify-center items-start font-bold text-xl ${style.display} ${style.position} left-0`}
               >
                 {email ? (
                   <EmailsSentForm

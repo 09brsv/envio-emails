@@ -80,7 +80,7 @@ export default function EmailSendForm() {
       </LabelSendEmail>
 
       <textarea
-        className="h-4/5 px-6 py-8 bg-blackBg border border-whiteText/30 outline-none resize-none"
+        className="h-3/5 px-6 py-8 bg-blackBg border border-whiteText/30 outline-none resize-none"
         placeholder="Escreva aqui a sua mensagem:"
         name="text"
         value={text}
@@ -88,7 +88,7 @@ export default function EmailSendForm() {
         required
       />
 
-      <div className="w-full h-1/6 flex justify-around py-5">
+      <div className="w-full h-1/6 flex justify-around py-3">
         <ButtonForm
           className="self-end bg-redBg hover:bg-redBg/80"
           type="reset"

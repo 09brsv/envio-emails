@@ -10,11 +10,9 @@ import Link from "next/link";
 
 export default function SendEmail() {
   return (
-    <div className="h-screen flex flex-col bg-blackBg">
+    <div className="h-screen flex flex-col bg-blackBg border border-whiteText/30">
       <div className="flex justify-between sm:justify-end">
-        <BackIcon
-          href="user/emails-sent"
-        />
+        <BackIcon href="user/emails-sent" />
         <Logout />
       </div>
       <NavBarHeader>
@@ -27,7 +25,11 @@ export default function SendEmail() {
 
           <Li className="underline sm:basis-1/2">Novo destinatário</Li>
 
-          <Li className="hidden sm:block sm:basis-1/4">Enviar para vários</Li>
+          <Li className="hidden sm:block sm:basis-1/4">
+            <Link className="hover:text-whiteText/80" href="/user/send-all">
+              Enviar para vários
+            </Link>
+          </Li>
         </Ul>
       </NavBarHeader>
       <EmailSendForm />

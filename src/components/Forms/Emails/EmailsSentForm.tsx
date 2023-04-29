@@ -1,4 +1,3 @@
-import { TEMailSend } from "@/@types/Email";
 import InputSendEmail from "../Inputs/InputSendEmail";
 import LabelSendEmail from "../Labels/LabelSendEmail";
 import TextArea from "../Inputs/TextArea";
@@ -13,7 +12,7 @@ type TBodyEmail = {
 export default function EmailsSentForm({to, subject, body, date}: TBodyEmail) {
 
   return (
-    <form className="flex flex-col h-full w-full bg-blackBg">
+    <form className="flex flex-col h-full overflow-hidden w-full bg-blackBg">
       <LabelSendEmail className="" htmlFor="recipient">
         <span className="font-semibold">Para:</span>
         <InputSendEmail
