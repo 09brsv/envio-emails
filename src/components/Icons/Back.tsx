@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AnchorHTMLAttributes } from "react";
 
 function BackIcon(props: AnchorHTMLAttributes<HTMLAnchorElement>, url = "#") {
-  const className: string = "px-4 py-3";
+  const className: string = "px-4 py-3 mb-2";
   const concatClassName = `${props.className} ${className}`;
 
   return (

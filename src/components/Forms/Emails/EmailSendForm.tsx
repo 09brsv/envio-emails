@@ -94,7 +94,7 @@ export default function EmailSendForm() {
           type="reset"
           onClick={clearAllFieldValues}
         >
-          Cancelar
+          Apagar tudo
         </ButtonForm>
         <ButtonForm
           className="self-end bg-blueDark"
@@ -104,7 +104,7 @@ export default function EmailSendForm() {
           {loading ? "Enviando..." : "Enviar"}
         </ButtonForm>
       </div>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} />
     </form>
   );
 }
