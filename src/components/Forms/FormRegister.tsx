@@ -116,7 +116,7 @@ export default function FormRegister() {
         </div>
       </div>
       <ButtonForm
-        className="mt-2 w-48 md:w-56 bg-blueDark self-center hover:opacity-90"
+        className="mt-2 w-52 md:w-56 bg-blueDark self-center hover:opacity-90"
         type="submit"
         disabled={loading}
       >

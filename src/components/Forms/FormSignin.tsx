@@ -87,7 +87,7 @@ export default function Login() {
         </div>
       </div>
       <ButtonForm
-        className="mt-2 w-48 md:w-56 bg-blueDark self-center"
+        className="mt-2 w-52 md:w-56 bg-blueDark self-center"
         type="submit"
         disabled={loading}
       >
