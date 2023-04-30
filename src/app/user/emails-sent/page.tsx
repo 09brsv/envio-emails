@@ -110,7 +110,7 @@ export default function EmailsSent() {
         <section className="h-full flex flex-col w-full relative">
           <NavBarHeader className="">
             <Ul>
-              <Li className="underline basis-1/2">Emails enviados</Li>
+              <Li className="underline text-whiteText/80 basis-1/2">Emails enviados</Li>
 
               <Li className=" basis-1/3 sm:basis-1/4">
                 <Link

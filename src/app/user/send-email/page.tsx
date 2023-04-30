@@ -23,7 +23,7 @@ export default function SendEmail() {
             </Link>
           </Li>
 
-          <Li className="underline sm:basis-1/2">Novo destinatário</Li>
+          <Li className="underline text-whiteText/80 sm:basis-1/2">Novo destinatário</Li>
 
           <Li className="hidden sm:block sm:basis-1/4">
             <Link className="hover:text-whiteText/80" href="/user/send-all">
