@@ -8,13 +8,3 @@ body {
   overflow: hidden;
 }
 
-.listMails-enter {
-  transform: translateX(100%);
-}
-.listMails-enter-active {
-  transform: translateX(0px);
-  transition: ease-in-out 300ms;
-}
-.listMails-enter-done {
-  
-}
