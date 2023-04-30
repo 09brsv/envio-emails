@@ -33,7 +33,7 @@ export default function Login() {
 
     if (isLoggedIn instanceof Error) {
       toast.warn("Usuário e/ou senha mal informado", {
-        position: "top-center",
+        position: "top-center"
       });
       setLoading(false);
       setFieldValues({
@@ -50,11 +50,7 @@ export default function Login() {
   };
 
   return (
-    <form
-      className="flex flex-col gap-1"
-      onSubmit={handleSubmit}
-      method="post"
-    >
+    <form className="flex flex-col gap-1" onSubmit={handleSubmit} method="post">
       <LabelSign htmlFor="email">Digite o seu email</LabelSign>
       <InputUser
         type="email"
@@ -97,7 +93,7 @@ export default function Login() {
       >
         {loading ? "Entrando..." : "Entrar"}
       </ButtonForm>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} />
     </form>
   );
 }

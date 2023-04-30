@@ -49,12 +49,14 @@ export default function FormRegister() {
         return;
       }
     }
-    toast.success("Cadastro realizado com sucesso");
+    toast.success("Cadastro realizado com sucesso", {
+      autoClose: 2000,
+    });
     setLoading(false);
     clearAllFieldValues();
     setTimeout(() => {
       router.push("/login");
-    },5000);
+    }, 2000);
   };
 
   const { name, email, password } = fieldValues;
@@ -120,7 +122,7 @@ export default function FormRegister() {
       >
         {loading ? "Cadastrando..." : "Cadastrar"}
       </ButtonForm>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} />
     </form>
   );
 }

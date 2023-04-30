@@ -1,5 +1,4 @@
 "use client";
-import { CSSTransition } from "react-transition-group";
 import cookies from "js-cookie";
 import { useApi } from "@/components/Hooks/FetchApi";
 import Logout from "@/components/Icons/Logout";
@@ -51,7 +50,7 @@ export default function EmailsSent() {
     setPosition({
       position: "absolute",
       display: "flex",
-      overflow: "hidden"
+      overflow: "hidden",
     });
     setIsEnter(true);
   };
@@ -108,8 +107,8 @@ export default function EmailsSent() {
           </div>
         </>
       ) : (
-        <section className="flex flex-col w-full relative">
-          <NavBarHeader>
+        <section className="h-full flex flex-col w-full relative">
+          <NavBarHeader className="">
             <Ul>
               <Li className="underline basis-1/2">Emails enviados</Li>
 
@@ -131,43 +130,43 @@ export default function EmailsSent() {
           </NavBarHeader>
 
           <div className="h-full flex">
-            <aside className="h-2/3 flex flex-col w-full sm:w-2/3 overflow-y-auto">
+            <aside
+              className={`${
+                style.display === "hidden" ? "flex" : "hidden"
+              }  flex-col w-full sm:w-2/3 overflow-y-auto`}
+            >
               {data &&
                 data.map((email) => {
                   return (
                     <div
                       key={email.id}
-                      className={`${
-                        style.display === "hidden" ? "flex" : "hidden"
-                      } sm:flex flex-col gap-1 border-y border-y-whiteText/30 border-b-0 p-2 px-3`}
+                      className={`sm:flex flex-col gap-1 border-y border-y-whiteText/30 border-b-0 p-2 px-3`}
                       onClick={() => handleClick(email)}
                     >
                       <h3>{email.email}</h3>
                       <p>{email.subject}</p>
-                      <p>{email.body}</p>
+                      <p className="max-h-12 overflow-hidden">{email.body}</p>
                     </div>
                   );
                 })}
             </aside>
 
-            <CSSTransition in={isEnter} timeout={3000} classNames="listMails">
-              <div
-                className={`sm:flex w-full sm:static justify-center items-start font-bold text-xl ${style.display} ${style.position} left-0`}
-              >
-                {email ? (
-                  <EmailsSentForm
-                    to={email.email}
-                    subject={email.subject}
-                    body={email.body}
-                    date={email.date}
-                  />
-                ) : (
-                  <p className="pt-20">
-                    Selecione algum email para abrir os detalhes
-                  </p>
-                )}
-              </div>
-            </CSSTransition>
+            <div
+              className={`sm:flex h-full w-full sm:static justify-center items-start font-bold text-xl ${style.display} ${style.position} left-0`}
+            >
+              {email ? (
+                <EmailsSentForm
+                  to={email.email}
+                  subject={email.subject}
+                  body={email.body}
+                  date={email.date}
+                />
+              ) : (
+                <p className="pt-20">
+                  Selecione algum email para abrir os detalhes
+                </p>
+              )}
+            </div>
           </div>
         </section>
       )}
