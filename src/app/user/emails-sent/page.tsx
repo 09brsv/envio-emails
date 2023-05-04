@@ -27,7 +27,6 @@ export default function EmailsSent() {
     display: "hidden",
     overflow: "auto",
   });
-  const [isEnter, setIsEnter] = useState<boolean>(false);
 
   const api = useApi();
   useEffect(() => {
@@ -45,14 +44,12 @@ export default function EmailsSent() {
   }, []);
 
   const handleClick = (target: TDataSent) => {
-    setIsEnter(false);
     setEmail(target);
     setPosition({
       position: "absolute",
       display: "flex",
       overflow: "hidden",
     });
-    setIsEnter(true);
   };
 
   return (
@@ -62,10 +59,9 @@ export default function EmailsSent() {
       {style.display === "flex" ? (
         <div className="flex">
           <BackIcon
-            className="sm:hidden"
+            className=""
             href="user/emails-sent"
             onClick={() => {
-              setIsEnter(false);
               setPosition({
                 position: "static",
                 display: "hidden",
@@ -133,7 +129,7 @@ export default function EmailsSent() {
             <aside
               className={`${
                 style.display === "hidden" ? "flex" : "hidden"
-              }  flex-col w-full sm:w-2/3 overflow-y-auto`}
+              }  flex-col w-full sm:w-2/3 overflow-y-auto pb-32`}
             >
               {data &&
                 data.map((email) => {
