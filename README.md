@@ -4,7 +4,7 @@
 
 **App construido para enviar autenticar usuários e fazer requisições de emails utilizando Next.js, React e Typescript.**
 
-![screen-planos](https://user-images.githubusercontent.com/104792685/195423958-0c8e222d-5758-4bfd-85f7-1907608865d3.gif)
+![projeto-envio-emails](https://user-images.githubusercontent.com/104792685/236519231-9e650508-7225-41b5-8c87-7a3efb740669.gif)
 <br>
 
 ## Como executar o projeto
