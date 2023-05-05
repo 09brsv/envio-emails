@@ -9,7 +9,7 @@ import Ul from "@/components/Nav/Ul";
 import Link from "next/link";
 
 export default function SendEmail() {
-  let smallSizeText
+  
   return (
     <div className="h-screen flex flex-col bg-blackBg border border-whiteText/30">
       <div className="flex justify-between sm:justify-end">
