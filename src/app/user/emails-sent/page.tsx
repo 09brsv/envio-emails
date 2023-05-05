@@ -125,11 +125,11 @@ export default function EmailsSent() {
             </Ul>
           </NavBarHeader>
 
-          <div className="h-full flex">
+          <div className="h-4/5 sm:h-full flex">
             <aside
               className={`${
                 style.display === "hidden" ? "flex" : "hidden"
-              }  flex-col w-full sm:w-2/3 overflow-y-auto pb-32`}
+              }  flex-col w-full sm:w-2/3 overflow-y-auto pb-5`}
             >
               {data &&
                 data.map((email) => {
