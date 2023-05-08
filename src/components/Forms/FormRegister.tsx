@@ -42,12 +42,11 @@ export default function FormRegister() {
         toast.warn("Email já cadastrado", {
           position: "top-center",
         });
-        return;
+       
       } else {
         toast.error("Erro interno, tente novamente");
-        setLoading(false);
-        return;
       }
+    return setLoading(false);
     }
     toast.success("Cadastro realizado com sucesso", {
       autoClose: 2000,
